@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
+import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
   lineNumber: {
@@ -10,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     textAlign: "center",
     cursor: "auto",
-    lineHeight: "20px",
-    fontSize: "15px",
+    lineHeight: "21px",
+    fontSize: "15.7px",
     overflow: "hidden"
   }
 }));
@@ -26,10 +27,12 @@ const LineNumber = ({ lines }) => {
 
   console.log(arr.join("\n"));
   const classes = useStyles();
+  const id = uuidv4();
 
   return (
     <div className='number'>
       <textarea
+        id='lineNum'
         className={classes.lineNumber}
         readOnly
         name='number'
