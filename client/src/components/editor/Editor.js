@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
@@ -65,6 +65,18 @@ const Editor = () => {
     // setRawCode(formattedCode);
   };
 
+  const handleScrollChange = (evt) => {
+    console.log("Scrolling");
+    // console.log(document.getElementById("code"));
+    const txtele = document.getElementById("code");
+    // let vertical1 = txtele.scrollTop;
+    const lineele = document.getElementById("lineNum");
+    // let vertical2 = lineele.scrollTop;
+    lineele.scrollTop = txtele.scrollTop;
+    console.log(txtele.scrollTop, lineele.scrollTop);
+    // console.log(document.getElementById("lineNum"));
+  };
+
   return (
     <div className='codeeditor'>
       <LineNumber lines={lines} />
@@ -75,6 +87,7 @@ const Editor = () => {
         value={formattedCode || rawCode}
         onChange={onChange}
         onClick={onClick}
+        onScroll={handleScrollChange}
         autofocus
         autoCorrect='off'
         autoCapitalize='off'
