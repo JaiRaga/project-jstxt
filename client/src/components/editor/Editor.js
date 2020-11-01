@@ -16,14 +16,15 @@ const useStyles = makeStyles((theme) => ({
   },
   textarea: {
     resize: "none",
-    gridColumn: "span 22",
+    gridColumn: "span 20",
     gridRow: "span 24",
-    lineHeight: "20px",
-    fontSize: "15px",
+    lineHeight: "21px",
+    fontSize: "15.5px",
     paddingRight: "74px",
     border: "none",
     outline: "none",
-    backgroundColor: "#aaa",
+    backgroundColor: "#000e",
+    color: "#28abb9",
     overflowY: "auto"
   },
   nums: {
@@ -45,7 +46,7 @@ const Editor = () => {
     //     parser: "babel",
     //     plugins: [babel]
     //   })
-    // );
+    // )
     console.log(rawCode, rawCode.split("\n"));
     // console.log(formattedCode, formattedCode.split("\n"));
 
