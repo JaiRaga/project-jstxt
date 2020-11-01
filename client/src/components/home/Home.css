@@ -1,0 +1,128 @@
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+} */
+
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+}
+
+.navbar {
+  grid-column: span 24;
+  grid-row: span 2;
+  background-color: #1976d2;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.filearea {
+  grid-column: span 4;
+  grid-row: span 21;
+  background-color: #686d76;
+}
+
+.editorarea {
+  grid-column: span 20;
+  grid-row: span 21;
+  /* background-color: red; */
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+}
+
+.editorarea-filearea-closed {
+  grid-column: span 24;
+  grid-row: span 21;
+  /* background-color: royalblue; */
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+}
+
+.editor {
+  grid-column: span 24;
+  grid-row: span 24;
+  /* background-color: #794c74; */
+
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+
+  /* overflow-y: auto; */
+
+  /* grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  background-color: #794c74; */
+  /* position: relative; */
+}
+
+.codeeditor {
+  grid-column: span 22;
+  grid-row: span 24;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+}
+
+.codesnapshot {
+  /* grid-column: span 1;
+  grid-row: span 24; */
+  background-color: #19d3da;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 70px;
+
+  border-left: 2px solid black;
+
+  /* grid-column: span 1;
+  grid-row: span 21;
+  background-color: #19d3da; */
+}
+
+.footermenu {
+  grid-column: span 24;
+  grid-row: span 1;
+  background-color: #f8efd4;
+  z-index: 8;
+}
+
+.number {
+  /* display: flex; */
+  /* flex-direction: column; */
+  background-color: saddlebrown;
+  /* align-items: center; */
+  /* margin-right: 5px; */
+  /* font-size: 16px; */
+  /* margin-right: auto; */
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; */
+  /* width: 4%; */
+  /* line-height: 20px; */
+  z-index: 1;
+  grid-column: span 2;
+  grid-row: span 24;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(24, 1fr);
+}
+
+/* .number .inner {
+  position: relative;
+}
+
+.num {
+  position: absolute;
+  left: 0;
+  right: 0;
+} */

@@ -1,38 +1,27 @@
 import React from "react";
-import { Grid, makeStyles } from "@material-ui/core";
+import "./Home.css";
+import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
+import FileArea from "../files/FileArea";
 import Editor from "../editor/Editor";
-import Files from "../layout/Files";
-import OpenFiles from "../layout/OpenFiles";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1
-  },
-  top: {
-    marginTop: "auto"
-  },
-  container: {
-    // maxWidth: "100%",
-    // height: "100%"
-  }
-}));
+import CodeSnapShot from "../editor/CodeSnapShot";
+import EditorArea from "../editor/EditorArea";
 
 const Home = () => {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid item>
-          <Files />
-        </Grid>
-        <Grid item className={classes.container} xs={7}>
-          <OpenFiles />
-        </Grid>
-        {/* <Grid item xs={12}>
-          <SideMenu />
-        </Grid> */}
-      </Grid>
+    <div className='container'>
+      <div className='navbar'>
+        <Navbar />
+      </div>
+      <div className='filearea'>
+        <FileArea />
+      </div>
+      <div className='editorarea'>
+        <EditorArea />
+      </div>
+      <div className='footermenu'>
+        <Footer />
+      </div>
     </div>
   );
 };
