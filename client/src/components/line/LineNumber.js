@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
 const LineNumber = ({ lines }) => {
   let arr = [];
 
-  for (let i = 1; i <= lines + 7; i++) {
+  for (let i = 1; i <= lines; i++) {
     arr.push(i);
   }
   if (arr.length === 0) arr.push(1);
 
-  console.log(arr.join("\n"));
+  // console.log(arr.join("\n"));
   const classes = useStyles();
   const id = uuidv4();
 
