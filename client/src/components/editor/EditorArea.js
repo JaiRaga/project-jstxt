@@ -6,7 +6,7 @@ import EditorItem from "./EditorItem";
 import Editor from "../editor/Editor";
 import CodeSnapShot from "../editor/CodeSnapShot";
 
-let editor = 2,
+let editor = 3,
   span = 24 / editor;
 
 const useStyles = makeStyles((theme) => ({
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
     display: "grid",
     gridTemplateColumns: "repeat(24, 1fr)",
     gridTemplateRows: "repeat(24, 1fr)",
-    position: "relative",
-    overflowX: "hidden",
-    overflowY: "hidden"
+    position: "relative"
+    // overflowX: "hidden",
+    // overflowY: "hidden"
   }
 }));
 
@@ -55,10 +55,13 @@ const EditorArea = () => {
         </Grid>
       </Grid> */}
       <div className={classes.editorItem}>
-        <EditorItem />
+        <EditorItem editorId='html' />
       </div>
       <div className={classes.editorItem}>
-        <EditorItem />
+        <EditorItem editorId='css' />
+      </div>
+      <div className={classes.editorItem}>
+        <EditorItem editorId='js' />
       </div>
     </Fragment>
   );
