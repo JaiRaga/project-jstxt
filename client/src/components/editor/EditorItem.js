@@ -4,12 +4,12 @@ import Editor from "../editor/Editor";
 import CodeSnapShot from "../editor/CodeSnapShot";
 import LineNumber from "../line/LineNumber";
 
-const EditorItem = () => {
+const EditorItem = ({ editorId }) => {
   return (
     <Fragment>
       <div className='editor'>
         {/* <LineNumber /> */}
-        <Editor />
+        <Editor editorId={editorId} />
 
         {/* <CodeSnapShot /> */}
       </div>
