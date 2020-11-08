@@ -11,7 +11,7 @@ import LineNumber from "../line/LineNumber";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    gridColumn: "span 23",
+    gridColumn: "span 24",
     gridRow: "span 24"
   },
   textarea: {
@@ -19,16 +19,22 @@ const useStyles = makeStyles((theme) => ({
     gridColumn: "span 20",
     gridRow: "span 24",
     lineHeight: "21px",
+    // padding: "8px 10px",
     fontSize: "15.5px",
-    paddingRight: "74px",
+    paddingRight: "44px",
     border: "none",
     outline: "none",
     backgroundColor: "#000e",
     color: "#28abb9",
+    // overflowX: "auto",
     overflowY: "auto"
   },
   nums: {
     marginRight: "auto"
+  },
+  lineBorder: {
+    borderTop: "1px solid #898b8a",
+    borderBottom: "1px solid #898b8a"
   }
 }));
 
@@ -38,8 +44,13 @@ const Editor = () => {
   const [rawCode, setRawCode] = useState("");
   const [formattedCode, setFormattedCode] = useState("");
 
+  // When user enters text
   const onChange = (e) => {
+    console.log(e.target.value);
+
     setRawCode(e.target.value);
+    // console.log(e.target.value.split("\n").length);
+
     // setFormattedCode(
     //   prettier.format(rawCode, {
     //     semi: false,
@@ -47,39 +58,77 @@ const Editor = () => {
     //     plugins: [babel]
     //   })
     // )
-    console.log(rawCode, rawCode.split("\n"));
+    // console.log(rawCode, rawCode.split("\n"));
     // console.log(formattedCode, formattedCode.split("\n"));
 
     // Line Number
-    setLines(rawCode.split("\n").length);
-    console.log(lines);
+    // setLines(e.target.value.split("\n").length);
+    // console.log(e.target.value.split("\n").length);
+    // console.log(lines);
+
+    console.log(e.target.value.indexOf("\b"));
+    let input = document.getElementById("code");
+
+    // height of content
+    let ht = input.style.height;
+
+    input.style.height = 0;
+
+    let contentHt = `${input.scrollHeight} px`;
+    console.log("textarea content height", input.style.height);
+
+    input.style.height = `${input.scrollHeight} px`;
+    input.style.height = ht; // original height of editor (content + free space)
+
+    contentHt = parseInt(contentHt);
+    console.log(Math.floor(contentHt / 21)); // divide by line height to get no of lines in editor
+
+    // No of Lines
+    let lines_1 = e.target.value.split("\n").length,
+      lines_2 = Math.floor(contentHt / 21);
+
+    lines_1 > lines_2 ? setLines(lines_1) : setLines(lines_2);
+    // console.dir(input);
+    handleScrollChange(e);
   };
 
-  const onClick = () => {
-    // setFormattedCode(
-    //   prettier.format(rawCode, {
-    //     semi: false,
-    //     parser: "html",
-    //     plugins: [babel, htmlparser, cssparser],
-    //     tabWidth: 2
-    //   })
+  // When user clicks inside textarea
+  const onClick = async () => {
+    setFormattedCode(
+      prettier.format(rawCode, {
+        semi: false,
+        parser: "babel",
+        plugins: [babel, htmlparser, cssparser],
+        tabWidth: 4,
+        proseWrap: "always"
+      })
+    );
+    setRawCode(formattedCode);
+
+    // compiles formatted code
+    // let res = await node.runSource(formattedCode);
+
+    console.log("clicked!");
+    // console.log(res);
+
+    let input = document.getElementById("code");
+    // input.setSelectionRange(0,1)
+    // console.log(input.value, input.selectionStart, input.selectionEnd);
+    // console.log(
+    //   input.value.substring(0, input.selectionStart).split("\n"),
+    //   input.value.substring(0, input.selectionStart).split("\n").length,
+    //   input.style,
+    //   input.value
     // );
-    // setRawCode(formattedCode);
+
+    // input.value.style = "1px solid white";
+
+    // input = <span className={classes.lineBorder}>{input.value}</span>;
   };
 
+  // when user scrolls inside textarea
   const handleScrollChange = (evt) => {
     console.log("Scrolling");
-    // console.log(document.getElementById("code"));
-    // const txtele = document.getElementById("code");
-    // let vertical1 = txtele.scrollTop;
-    // const lineele = document.getElementById("lineNum");
-    // let vertical2 = lineele.scrollTop;
-    // lineele.scrollTop = txtele.scrollTop;
-    // console.log(txtele.scrollTop, lineele.scrollTop);
-    // console.log(document.getElementById("lineNum"));
-    // console.log(document.getElementsByTagName("textarea").length);
-    // console.log(txtele, lineele);
-
     let txtareas = document.getElementsByTagName("textarea");
     for (let i = 1; i < txtareas.length; i++) {
       const txtele = txtareas[i];
@@ -89,6 +138,11 @@ const Editor = () => {
     }
   };
 
+  const onPaste = (evt) => {
+    console.log(evt.clipboardData.getData("Text").split("/\r|\r\n|\n/").length);
+    console.log(evt.clipboardData.getData("text/plain").split("\n").length);
+  };
+
   return (
     <div className='codeeditor'>
       <LineNumber lines={lines} />
@@ -96,14 +150,17 @@ const Editor = () => {
         id='code'
         className={classes.textarea}
         name='editor'
-        value={formattedCode || rawCode}
-        onChange={onChange}
+        value={rawCode || formattedCode}
+        onChange={(e) => onChange(e)}
         onClick={onClick}
         onScroll={handleScrollChange}
+        onPaste={onPaste}
         autofocus
         autoCorrect='off'
         autoCapitalize='off'
         spellCheck='false'
+        nowrap='nowrap'
+        // wrap='off'
       />
       <CodeSnapShot />
       {false ? <LineNumber /> : null}
