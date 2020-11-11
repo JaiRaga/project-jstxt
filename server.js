@@ -1,5 +1,7 @@
 const express = require("express");
 require("./db/mongoose");
+// require("./codingServer");
+const editorRouter = require("./routes/editor");
 const { node } = require("compile-run");
 
 const app = express();
@@ -7,19 +9,22 @@ const app = express();
 //init middleware
 app.use(express.json());
 
+// Routes
+app.use("/api", editorRouter);
+
 // -----------------------------------------------------------------------------
 // Compiler code
-const srccode = `function name() {
-    console.log("Hello Raga")
-}
-name()`;
-const resultloc = node.runSource(srccode);
+// const srccode = `function name() {
+//     console.log("Hello Raga")
+// }
+// name()`;
+// const resultloc = node.runSource(srccode);
 
-resultloc.then((res) => console.log(res)).catch((err) => console.log(err));
+// resultloc.then((res) => console.log(res)).catch((err) => console.log(err));
 
-const result = node.runFile(`./app.js`, { stdin: "3\n2 " });
+// const result = node.runFile(`./app.js`, { stdin: "3\n2 " });
 
-result.then((res) => console.log(res.stdout)).catch((err) => console.log(err));
+// result.then((res) => console.log(res.stdout)).catch((err) => console.log(err));
 
 // -----------------------------------------------------------------------------
 
