@@ -15,30 +15,41 @@ router.post("/runcode", async (req, res) => {
     await code.save();
     console.log(3, path.join(__dirname, "../public/index.html"));
 
-    fs.writeFile(
-      path.join(__dirname, "../public/index.html"),
-      code.html,
-      (err) => {
-        if (err) console.log("Error**********", err);
-        console.log("Success html");
-      }
-    );
-    fs.writeFile(
-      path.join(__dirname, "../public/styles.css"),
-      code.css,
-      (err) => {
-        if (err) console.log("Error**********", err);
-        console.log("Success css");
-      }
-    );
-    fs.writeFile(
-      path.join(__dirname, "../public/script.js"),
-      code.js,
-      (err) => {
-        if (err) console.log("Error**********", err);
-        console.log("Success js");
-      }
-    );
+    // For Html editor
+    !!code.html
+      ? fs.writeFile(
+          path.join(__dirname, "../public/index.html"),
+          code.html,
+          (err) => {
+            if (err) console.log("Error**********", err);
+            console.log("Success html");
+          }
+        )
+      : null;
+
+    // For CSS editor
+    !!code.css
+      ? fs.writeFile(
+          path.join(__dirname, "../public/styles.css"),
+          code.css,
+          (err) => {
+            if (err) console.log("Error**********", err);
+            console.log("Success css");
+          }
+        )
+      : null;
+
+    // For JS editor
+    !!code.js
+      ? fs.writeFile(
+          path.join(__dirname, "../public/script.js"),
+          code.js,
+          (err) => {
+            if (err) console.log("Error**********", err);
+            console.log("Success js");
+          }
+        )
+      : null;
 
     console.log(4);
     res.status(201).send(code);
