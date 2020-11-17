@@ -5,8 +5,9 @@ import "../home/Home.css";
 import EditorItem from "./EditorItem";
 import Editor from "../editor/Editor";
 import CodeSnapShot from "../editor/CodeSnapShot";
+import ResultPane from "../resultPane/ResultPane";
 
-let editor = 3,
+let editor = 4,
   span = 24 / editor;
 
 const useStyles = makeStyles((theme) => ({
@@ -55,13 +56,16 @@ const EditorArea = () => {
         </Grid>
       </Grid> */}
       <div className={classes.editorItem}>
-        <EditorItem editorId='html' />
+        <EditorItem editorid='html' />
       </div>
       <div className={classes.editorItem}>
-        <EditorItem editorId='css' />
+        <EditorItem editorid='css' />
       </div>
       <div className={classes.editorItem}>
-        <EditorItem editorId='js' />
+        <EditorItem editorid='js' />
+      </div>
+      <div className={classes.editorItem}>
+        <ResultPane />
       </div>
     </Fragment>
   );
