@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import prettier from "prettier/standalone";
 import babel from "prettier/parser-babel";
@@ -8,6 +9,7 @@ import cssparser from "prettier/parser-postcss";
 import "../home/Home.css";
 import CodeSnapShot from "./CodeSnapShot";
 import LineNumber from "../line/LineNumber";
+import { sendCodes } from "../../redux/actions/code";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -38,17 +40,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Editor = () => {
+const Editor = ({ editorid }) => {
   const classes = useStyles();
   const [lines, setLines] = useState(0);
   const [rawCode, setRawCode] = useState("");
   const [formattedCode, setFormattedCode] = useState("");
+  const dispatch = useDispatch();
+
+  const changeCode = async (e) => await setRawCode(e.target.value);
 
   // When user enters text
   const onChange = (e) => {
     console.log(e.target.value);
 
-    setRawCode(e.target.value);
+    // const body = JSON.stringify(e.target.value, null, "\t");
+    // console.log("code", body);
+
+    setRawCode((prev) => console.log(prev));
+    // setRawCode(e.target.value);
+    changeCode(e);
+
+    dispatch(sendCodes({ [editorid]: rawCode }));
+
     // console.log(e.target.value.split("\n").length);
 
     // setFormattedCode(
@@ -94,16 +107,18 @@ const Editor = () => {
 
   // When user clicks inside textarea
   const onClick = async () => {
-    setFormattedCode(
-      prettier.format(rawCode, {
-        semi: false,
-        parser: "babel",
-        plugins: [babel, htmlparser, cssparser],
-        tabWidth: 4,
-        proseWrap: "always"
-      })
-    );
-    setRawCode(formattedCode);
+    // setFormattedCode(
+    //   prettier.format(rawCode, {
+    //     semi: false,
+    //     parser: "babel",
+    //     plugins: [babel, htmlparser, cssparser],
+    //     tabWidth: 4,
+    //     proseWrap: "always"
+    //   })
+    // );
+    // setRawCode(formattedCode);
+
+    // dispatch(sendCodes({ [editorid]: rawCode }));
 
     // compiles formatted code
     // let res = await node.runSource(formattedCode);
@@ -149,6 +164,7 @@ const Editor = () => {
       <textarea
         id='code'
         className={classes.textarea}
+        editorid={editorid}
         name='editor'
         value={rawCode || formattedCode}
         onChange={(e) => onChange(e)}
