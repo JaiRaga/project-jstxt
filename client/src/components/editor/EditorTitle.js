@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     gridColumn: "18 / -1",
     gridRow: "1"
+  },
+  icon: {
+    fontSize: "18px",
+    paddingTop: 2
   }
 }));
 
@@ -49,8 +53,8 @@ const EditorTitle = ({ title }) => {
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseExit}>
       <div className='title'>{titleText}</div>
-      <IconButton className={classes.closeIcon} size='small'>
-        <CloseIcon />
+      <IconButton className={classes.closeIcon}>
+        <CloseIcon className={classes.icon} />
       </IconButton>
     </div>
   );
