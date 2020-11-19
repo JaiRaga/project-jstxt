@@ -16,6 +16,13 @@ const theme = createMuiTheme({
     background: {
       default: "#fff"
     }
+  },
+  overrides: {
+    MuiIconButton: {
+      root: {
+        padding: 0
+      }
+    }
   }
 });
 
